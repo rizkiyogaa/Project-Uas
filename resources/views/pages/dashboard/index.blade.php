@@ -5,72 +5,43 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-        <div class="card dash-widget">
+    @foreach ($menus as $menu)
+    <div class="col-12 col-md-6 col-lg-4 d-flex">
+        <div class="card flex-fill">
+            <img alt="" src="{{ url('uploads/'.$menu->imageUrl) }}" class="card-img-top">
+            <div class="card-header">
+                <h5 class="card-title mb-0">{{ $menu->name }}</h5>
+            </div>
             <div class="card-body">
-                <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
-                <div class="dash-widget-info">
-                    <h3>112</h3>
-                    <span>Projects</span>
-                </div>
+                <p class="card-text">{{ $menu->description }}</p>
+                <strong>Price: Rp.{{ number_format($menu->price, 2) }}</strong>
+            </div>
+            <div class="card-footer text-muted">
+                <a class="btn btn-primary" href="#">Order</a>
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-        <div class="card dash-widget">
-            <div class="card-body">
-                <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
-                <div class="dash-widget-info">
-                    <h3>44</h3>
-                    <span>Clients</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-        <div class="card dash-widget">
-            <div class="card-body">
-                <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
-                <div class="dash-widget-info">
-                    <h3>37</h3>
-                    <span>Tasks</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-        <div class="card dash-widget">
-            <div class="card-body">
-                <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
-                <div class="dash-widget-info">
-                    <h3>218</h3>
-                    <span>Employees</span>
-                </div>
-            </div>
-        </div>
-    </div>
+    @endforeach
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-6 text-center">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">Total Revenue</h3>
-                        <div id="bar-charts"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 text-center">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">Sales Overview</h3>
-                        <div id="line-charts"></div>
-                    </div>
-                </div>
-            </div>
+{!! $menus->links() !!}
+{{-- <div class="row">
+    <div class="col-12 col-md-6 col-lg-4 d-flex">
+        <div>
+            <ul class="pagination pagination-sm">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active">
+                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Add Religion')
+@section('title', 'Add Menu')
 @section('content')
 
 <div class="row">
@@ -11,42 +11,58 @@
     </div>
     <div class="col-md-12">
         <div class="card">
-            <form action="{{ route('menu.store') }}" method="post">
+            <form action="{{ route('menu.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="form-group row">
                         <label class="col-lg-3 col-form-label">Name <span class="text-danger">*</span></label>
                         <div class="col-lg-9">
-                            <input type="text" name="name_en"
-                                class="form-control
-                                value="{{ old('name_en') }}">
+                            <input type="text" name="name"
+                                class="form-control"
+                                value="{{ old('name') }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-lg-3 col-form-label">Description <span
                                 class="text-danger">*</span></label>
                         <div class="col-lg-9">
-                            <input type="text" name="name_id"
-                                class="form-control
-                                value="{{ old('name_id') }}">
+                            <input type="text" name="description"
+                                class="form-control"
+                                value="{{ old('description') }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-3 col-form-label">Image <span
+                                class="text-danger">*</span></label>
+                        <div class="col-lg-9">
+                            <input class="form-control" type="file" name="image" accept="image/*">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-lg-3 col-form-label">Price <span
                                 class="text-danger">*</span></label>
                         <div class="col-lg-9">
-                            <input type="text" name="name_id"
-                                class="form-control
-                                value="{{ old('name_id') }}">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Rp.</span>
+                                </div>
+                                <input type="number" name="price" min="0" max="99999999999"
+                                class="form-control"
+                                value="{{ old('price') }}">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-lg-3 col-form-label">Description <span
+                        <label class="col-form-label col-lg-3">Category <span 
                                 class="text-danger">*</span></label>
+                    </label>
                         <div class="col-lg-9">
-                            <input type="text" name="name_id"
-                                class="form-control
-                                value="{{ old('name_id') }}">
+                            <select class="form-control" name="category_id">
+                                <option disabled selected>-- Select --</option>
+                                @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>

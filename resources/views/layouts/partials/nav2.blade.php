@@ -6,31 +6,13 @@
                     <li class="menu-title">
                         <span>Category</span>
                     </li>
-                    <li class="{{Request::is('category') ? 'active' : '' }}">
-                        <a href="#">
-                            <span>Appetizer</span>
+                    @foreach ($categories as $category)
+                    <li class="{{Request::get('category') == $category->name ? 'active' : '' }}">
+                        <a href="{{ route('dashboard.index', ['category' => $category->name]) }}">
+                            <span>{{ $category->name }}</span>
                         </a>
                     </li>
-                    <li class="{{Request::is('category') ? 'active' : '' }}">
-                        <a href="#">
-                            <span>Seafood</span>
-                        </a>
-                    </li>
-                    <li class="{{Request::is('category') ? 'active' : '' }}">
-                        <a href="#">
-                            <span>Vegetables</span>
-                        </a>
-                    </li>
-                    <li class="{{Request::is('category') ? 'active' : '' }}">
-                        <a href="#">
-                            <span>Dessert</span>
-                        </a>
-                    </li>
-                    <li class="{{Request::is('category') ? 'active' : '' }}">
-                        <a href="#">
-                            <span>Drink</span>
-                        </a>
-                    </li>
+                    @endforeach
                 </ul>
             </div>
         </div>

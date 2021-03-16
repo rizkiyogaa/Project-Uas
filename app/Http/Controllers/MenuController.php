@@ -5,130 +5,99 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LookupRequest;
 use App\Menu;
+use App\Category;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class MenuController extends Controller
 {
-    /**
-     * Display a listing of the religions data.
-     *
-     * @param Request $request
-     * @return void
-     */
+
     public function index(Request $request)
     {
-        $lookups = Menu::get();
-        $lookupCount = $lookups->count();
-
-        if ($request->view == 'trash') {
-            $lookups = $trash->get();
-        }
+        $menus = Menu::get();
+        $menusCount = $menus->count();
 
         return view('pages.menu.index', compact(
-            'lookups',
-            'lookupCount'
+            'menus',
+            'menusCount'
         ));
     }
 
-    /**
-     * Show the form for creating a new religion data.
-     *
-     * @return void
-     */
     public function create()
     {
-        return view('pages.menu.create');
+        $categories = Category::get();
+
+        return view('pages.menu.create', compact(
+            'categories'
+        ));
     }
 
-    /**
-     * Store a newly created religion data in storage.
-     *
-     * @param LookupRequest $request
-     * @return void
-     */
-    public function store(LookupRequest $request)
+    public function store(Request $request)
     {
-        try {
-            Menu::create($request->validated() + [
-                'reference' => 'religion',
-            ]);
-        } catch (QueryException $e) {
-            session()->flash('error', $e->errorInfo[2] ?? 'An error has occurred.');
-            return redirect()->back();
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'price' => 'required|integer',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
         }
 
-        session()->flash('success', 'Data has been saved successfully.');
+        $menu = new Menu($request->all());
+        
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $extension = $image->getClientOriginalExtension();
+            $name = $image->getFilename().'.'.$extension;
+            $destinationPath = public_path('/uploads');
+            $image->move($destinationPath, $name);
 
-        return redirect()->route('menu.index');
+            $menu->imageUrl = $name;
+        }
+        
+        $menu->save();
+        
+        return redirect()->route('menu.index')->with('success', 'Menu created successfully');
     }
 
-    /**
-     * Show the form for editing religion data.
-     *
-     * @param int $id
-     * @return void
-     */
     public function edit($id)
     {
-        $lookup = Menu::findOrFail($id);
+        $menu = Menu::findOrFail($id);
+        $categories = Category::get();
 
-        return view('pages.menu.edit', compact('lookup'));
+        return view('pages.menu.edit', compact([
+            'menu',
+            'categories'
+        ]));
     }
 
-    /**
-     * Update the religion data in storage.
-     *
-     * @param LookupRequest $request
-     * @param int $id
-     * @return void
-     */
-    public function update(LookupRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $lookup = Menu::findOrFail($id);
+        $menu = Menu::findOrFail($id);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $extension = $image->getClientOriginalExtension();
+            $name = $image->getFilename().'.'.$extension;
+            $destinationPath = public_path('/uploads');
+            $image->move($destinationPath, $name);
 
-        try {
-            $lookup->update($request->validated());
-        } catch (QueryException $e) {
-            session()->flash('error', $e->errorInfo[2] ?? 'An error has occurred.');
-            return redirect()->back();
+            $menu->imageUrl = $name;
         }
+        $menu->update($request->all());
 
-        session()->flash('success', 'Data has been saved successfully.');
-
-        return redirect()->route('settings.religion.index');
+        return redirect()->route('menu.index')->with('success', 'Menu updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return void
-     */
     public function destroy($id)
     {
-        $lookup = Menu::findOrFail($id);
-        $lookup->delete();
+        $menu = Menu::findOrFail($id);
+        $menu->delete();
 
-        session()->flash('success', 'Data has been deleted successfully.');
-
-        return redirect()->route('settings.religion.index');
-    }
-    
-    /**
-     * Restore the specified religion data from storage.
-     *
-     * @param int $id
-     * @return void
-     */
-    public function restore($id)
-    {
-        Menu::onlyTrashed()
-            ->where('id', $id)
-            ->restore();
-        
-        session()->flash('success', 'Data has been restored successfully.');
-    
-        return redirect()->route('settings.religion.index');
+        return redirect()->route('menu.index')->with('success', 'Menu deleted successfully');
     }
 }

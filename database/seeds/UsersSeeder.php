@@ -17,6 +17,7 @@ class UsersSeeder extends Seeder
             'id' => 1,
             'name' => 'Super Admin',
             'email' => 'admin@restoran.id',
+            'role' => 'Admin',
             'password' => bcrypt('admin'),
         ]);
     }

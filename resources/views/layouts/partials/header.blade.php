@@ -10,15 +10,17 @@
 
     <!-- Header Menu -->
     <ul class="nav user-menu">
-        @if (Auth::user())
+        @if ((Auth::user() && Auth::user()->role != 'Admin'))
+        <li class="nav-item">
+            <a href="" class="nav-link">My Order</a>
+        </li>
         <li class="nav-item">
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button class="dropdown-item" type="submit">Logout</button>
             </form>
-        </li>
+        </li>        
         @else
-        <!-- /Header Menu -->
         <li class="nav-item">
             <a class="nav-link" href="{{ route('login') }}" role="button" aria-expanded="false">
                 Login

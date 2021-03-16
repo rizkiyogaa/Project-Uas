@@ -17,6 +17,9 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <h3 class="page-title">@yield('title')</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item">{{ Request::get('category') }}</li>
+                        </ul>
                     </div>
                 </div>
             </div>

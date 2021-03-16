@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
-@section('title', 'Manage Menu')
+@section('title', 'Manage Category')
 @section('content')
 
 <div class="row">
     <div class="col-auto mb-4">
-        <a href="{{ route('menu.create') }}" class="btn add-btn">
+        <a href="{{ route('category.create') }}" class="btn add-btn">
             <i class="fa fa-plus"></i> Add new data
         </a>
     </div>
@@ -14,10 +14,10 @@
             <div class="card-body">
                 <ul class="nav nav-tabs nav-tabs-bottom">
                     <li class="nav-item">
-                        <a href="{{ route('menu.index') }}"
-                            class="nav-link active">
+                        <a href="{{ route('category.index') }}"
+                            class="nav-link">
                             All&nbsp;
-                            <span class="badge badge-primary">{{ $menusCount }}</span>
+                            <span class="badge badge-primary">{{ $categoriesCount }}</span>
                         </a>
                     </li>
                 </ul>
@@ -29,22 +29,14 @@
                                     <tr>
                                         <th width="10%">No</th>
                                         <th>Name</th>
-                                        <th>Image</th>
-                                        <th>Description</th>
-                                        <th>Category</th>
-                                        <th>Price</th>
                                         <th width="10%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($menus as $menu)
+                                    @foreach ($categories as $category)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $menu->name }}</td>
-                                        <td><img src="{{ url('uploads/'.$menu->imageUrl) }}" width="50%" alt=""></td>
-                                        <td>{{ $menu->description }}</td>
-                                        <td>{{ $menu->category->name ?? '' }}</td>
-                                        <td>Rp. {{ number_format($menu->price, 2) }}</td>
+                                        <td>{{ $category->name }}</td>
                                         <td class="text-right">
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" data-toggle="dropdown" aria-expanded="false"
@@ -52,14 +44,14 @@
                                                     <i class="material-icons">more_vert</i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="{{ route('menu.edit', $menu->id) }}"
+                                                    <a href="{{ route('category.edit', $category->id) }}"
                                                         class="dropdown-item">
                                                         <i class="fa fa-pencil m-r-5"></i> Edit
                                                     </a>
-                                                    <form action="{{ route('menu.destroy', $menu->id) }}" method="POST">
+                                                    <form action="{{ route('category.destroy', $category->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" data-hashid="{{ $menu->id }}"
+                                                        <button type="submit" data-hashid="{{ $category->id }}"
                                                             data-method="delete" class="dropdown-item btn-swal text-danger">
                                                             <i class="fa fa-trash-o m-r-5"></i> Delete
                                                         </button>
