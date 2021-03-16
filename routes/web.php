@@ -10,9 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', 'DashboardController@index')->name('dashboard.index');
-
 Auth::routes();
-Route::resource('menu', 'MenuController')->parameter('menu', 'id')->except('show');
-Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/admin', 'AdminController@index')->name('admin.index');
+Route::get('/', 'DashboardController@index')->name('dashboard.index');
+Route::resource('menu', 'MenuController');

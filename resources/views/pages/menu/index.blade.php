@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
-@section('title', 'Manage Religion Settings')
+@section('title', 'Manage Menu')
 @section('content')
 
 <div class="row">
     <div class="col-auto mb-4">
-        <a href="{{ route('settings.religion.create') }}" class="btn add-btn">
+        <a href="{{ route('menu.create') }}" class="btn add-btn">
             <i class="fa fa-plus"></i> Add new data
         </a>
     </div>
@@ -14,16 +14,10 @@
             <div class="card-body">
                 <ul class="nav nav-tabs nav-tabs-bottom">
                     <li class="nav-item">
-                        <a href="{{ route('settings.religion.index') }}"
+                        <a href="{{ route('menu.index') }}"
                             class="nav-link {{ Request::get('view') != 'trash' ? 'active' : '' }}">
                             All&nbsp;
                             <span class="badge badge-primary">{{ $lookupCount }}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="?view=trash" class="nav-link {{ Request::get('view') == 'trash' ? 'active' : '' }}">
-                            Trash&nbsp;
-                            <span class="badge badge-danger">{{ $trash->count() }}</span>
                         </a>
                     </li>
                 </ul>
@@ -35,7 +29,10 @@
                                     <tr>
                                         <th width="10%">No</th>
                                         <th>Name</th>
-                                        <th>Translation (ID)</th>
+                                        <th>Image</th>
+                                        <th>Description</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
                                         <th width="10%">Action</th>
                                     </tr>
                                 </thead>
@@ -43,8 +40,11 @@
                                     @foreach ($lookups as $lookup)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $lookup->name_en }}</td>
-                                        <td>{{ $lookup->name_id }}</td>
+                                        <td>{{ $lookup->name }}</td>
+                                        <td>{{ $lookup->imageUrl }}</td>
+                                        <td>{{ $lookup->description }}</td>
+                                        <td>{{ $lookup->category }}</td>
+                                        <td>{{ $lookup->price }}</td>
                                         <td class="text-right">
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" data-toggle="dropdown" aria-expanded="false"
@@ -52,8 +52,7 @@
                                                     <i class="material-icons">more_vert</i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    @if (!$lookup->trashed())
-                                                    <a href="{{ route('settings.religion.edit', $lookup->hashid) }}"
+                                                    <a href="{{ route('menu.edit', $lookup->hashid) }}"
                                                         class="dropdown-item">
                                                         <i class="fa fa-pencil m-r-5"></i> Edit
                                                     </a>
@@ -61,12 +60,6 @@
                                                         data-method="delete" class="dropdown-item btn-swal text-danger">
                                                         <i class="fa fa-trash-o m-r-5"></i> Delete
                                                     </button>
-                                                    @else
-                                                    <button type="button" data-hashid="{{ $lookup->hashid }}"
-                                                        data-method="put" class="dropdown-item btn-swal">
-                                                        <i class="fa fa-reply m-r-5"></i> Restore
-                                                    </button>
-                                                    @endif
                                                 </div>
                                             </div>
                                         </td>
@@ -96,7 +89,7 @@
         let $this = $(this),
             hashid = $this.data('hashid'),
             method = $this.data('method'),
-            url = `{{ route('settings.religion.index') }}/${hashid}`,
+            url = `{{ route('menu.index') }}/${hashid}`,
             textSwal = method == 'delete' ?
             '@lang('
         company.sweetalert.text.delete ')': '@lang('

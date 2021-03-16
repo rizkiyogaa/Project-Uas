@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Setting;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LookupRequest;
-use App\Models\Lookup;
+use App\Menu;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -18,9 +18,8 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
-        $lookups = Lookup::religion()->get();
+        $lookups = Menu::get();
         $lookupCount = $lookups->count();
-        $trash = Lookup::onlyTrashed()->religion();
 
         if ($request->view == 'trash') {
             $lookups = $trash->get();
@@ -28,8 +27,7 @@ class MenuController extends Controller
 
         return view('pages.menu.index', compact(
             'lookups',
-            'lookupCount',
-            'trash'
+            'lookupCount'
         ));
     }
 
@@ -52,7 +50,7 @@ class MenuController extends Controller
     public function store(LookupRequest $request)
     {
         try {
-            Lookup::create($request->validated() + [
+            Menu::create($request->validated() + [
                 'reference' => 'religion',
             ]);
         } catch (QueryException $e) {
@@ -73,7 +71,7 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        $lookup = Lookup::findOrFail($id);
+        $lookup = Menu::findOrFail($id);
 
         return view('pages.menu.edit', compact('lookup'));
     }
@@ -87,7 +85,7 @@ class MenuController extends Controller
      */
     public function update(LookupRequest $request, $id)
     {
-        $lookup = Lookup::findOrFail($id);
+        $lookup = Menu::findOrFail($id);
 
         try {
             $lookup->update($request->validated());
@@ -109,7 +107,7 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        $lookup = Lookup::findOrFail($id);
+        $lookup = Menu::findOrFail($id);
         $lookup->delete();
 
         session()->flash('success', 'Data has been deleted successfully.');
@@ -125,7 +123,7 @@ class MenuController extends Controller
      */
     public function restore($id)
     {
-        Lookup::onlyTrashed()
+        Menu::onlyTrashed()
             ->where('id', $id)
             ->restore();
         

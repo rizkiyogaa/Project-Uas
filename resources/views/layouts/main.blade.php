@@ -7,14 +7,16 @@
 
 <body>
 
-    @include('layouts.partials.header2')
+    @include('layouts.partials.nav')
 
+    @include('layouts.partials.header')
+
+    <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-header">
                 <div class="row">
                     <div class="col-sm-12">
                         <h3 class="page-title">@yield('title')</h3>
-                        @include('layouts.partials.breadcrumb')
                     </div>
                 </div>
             </div>
@@ -22,7 +24,7 @@
 
             @yield('content')
         </div>
-
+    </div>
     @include('layouts.partials.footer-scripts')
 
 </body>
