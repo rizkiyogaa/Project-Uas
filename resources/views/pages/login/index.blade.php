@@ -6,16 +6,9 @@
     <div class="account-content">
         <div class="container">
 
-            <!-- Account Logo -->
-            <div class="account-logo">
-                <a href="index"><img src="img/logo2.png" alt="Dreamguy's Technologies"></a>
-            </div>
-            <!-- /Account Logo -->
-
             <div class="account-box">
                 <div class="account-wrapper">
                     <h3 class="account-title">Login</h3>
-                    <p class="account-subtitle">Access to our dashboard</p>
 
                     <!-- Account Form -->
                     <form action="index">

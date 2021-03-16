@@ -6,10 +6,17 @@
                     <li class="menu-title">
                         <span>Main</span>
                     </li>
-                    @php
-                        $menus = App\Models\Menu::tree();
-                    @endphp
-
+                    <li class="{{Request::is('category') ? 'active' : '' }}">
+                        <a href="#">
+                            <i class="la la-edit"></i>
+                            <span>Category </span><span class="menu-arrow"></span>
+                        </a>
+                        <ul style="display: none">
+                            <li>
+                                <a href="" class="">List</a>
+                            </li>
+                        </ul>
+                    </li>
                     @foreach ($menus as $menu)
                     <li class="{{ count($menu->childs) ? 'submenu' : ''}} {{ !count($menu->childs) && Request::is($menu->link.'*') ? 'active' : '' }}">
                         <a href="{{ count($menu->childs) ? '#' : url($menu->link) }}">

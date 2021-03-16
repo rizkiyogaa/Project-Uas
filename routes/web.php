@@ -11,10 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'DashboardController@index')->name('dashboard.index');
 
 Auth::routes();
-
+Route::resource('menu', 'MenuController')->parameter('menu', 'id')->except('show');
 Route::get('/home', 'HomeController@index')->name('home');

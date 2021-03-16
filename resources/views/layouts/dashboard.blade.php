@@ -7,8 +7,9 @@
 
 <body>
 
-    @include('layouts.partials.header2')
+    @include('layouts.partials.header')
 
+    <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-header">
                 <div class="row">
@@ -22,7 +23,7 @@
 
             @yield('content')
         </div>
-
+    </div>
     @include('layouts.partials.footer-scripts')
 
 </body>
