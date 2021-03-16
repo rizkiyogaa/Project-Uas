@@ -16,10 +16,7 @@ class UsersSeeder extends Seeder
         DB::table('users')->insert([
             'id' => 1,
             'name' => 'Super Admin',
-            'username' => 'admin',
             'email' => 'admin@restoran.id',
-            'email_verified_at' => Carbon::now(),
-            'role_id' => 1,
             'password' => bcrypt('admin'),
         ]);
     }
