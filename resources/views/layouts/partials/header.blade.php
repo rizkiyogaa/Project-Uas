@@ -12,7 +12,7 @@
     <ul class="nav user-menu">
         @if ((Auth::user() && Auth::user()->role != 'Admin'))
         <li class="nav-item">
-            <a href="" class="nav-link">My Order</a>
+            <a href="{{ route('order.index') }}" class="nav-link">My Order</a>
         </li>
         <li class="nav-item">
             <form action="{{ route('logout') }}" method="POST">

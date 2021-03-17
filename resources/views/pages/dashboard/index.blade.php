@@ -17,7 +17,11 @@
                 <strong>Price: Rp.{{ number_format($menu->price, 2) }}</strong>
             </div>
             <div class="card-footer text-muted">
-                <a class="btn btn-primary" href="#">Order</a>
+                <form action="{{ route('order.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="menu_id" value="{{ $menu->id }}">
+                    <button class="btn btn-primary" type="submit">Order</button>
+                </form>
             </div>
         </div>
     </div>

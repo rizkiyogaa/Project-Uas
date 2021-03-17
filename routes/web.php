@@ -13,7 +13,9 @@
 Auth::routes();
 
 Route::get('/', 'DashboardController@index')->name('dashboard.index');
-
+Route::group(['middleware' => 'auth'], function() {
+    Route::resource('order', 'OrderController');
+});
 Route::group(['middleware' => ['role:Admin', 'auth'], 'prefix' => 'admin'], function () {
     Route::resource('menu', 'MenuController');
     Route::resource('category', 'CategoryController');
