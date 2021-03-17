@@ -71,6 +71,7 @@ class RegisterController extends Controller
             'name' => $name,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'role' => 'Customer'
         ]);
 
         $customer = new Customer;

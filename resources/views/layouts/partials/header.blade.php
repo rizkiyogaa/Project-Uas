@@ -10,7 +10,7 @@
 
     <!-- Header Menu -->
     <ul class="nav user-menu">
-        @if ((Auth::user() && Auth::user()->role != 'Admin'))
+        @if (Auth::user())
         <li class="nav-item">
             <a href="{{ route('order.index') }}" class="nav-link">My Order</a>
         </li>
