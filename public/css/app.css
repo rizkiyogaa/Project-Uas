@@ -1,0 +1,81 @@
+/* DataTable exports */
+.dt-buttons {
+  position: relative;
+  float: left;
+}
+
+/* DataTable column visibility's card */
+.dt-button-background {
+  background: radial-gradient(ellipse farthest-corner at center, 
+    rgba(0,0,0,0.3) 0%, 
+    rgba(0,0,0,0.7) 100%);
+  position: fixed;
+  z-index: 2001;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+.dt-button-collection {
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+  border: 1px solid rgba(0,0,0,0.4);
+  background-color: white;
+  padding: 8px 8px 4px 8px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  position: absolute;
+  overflow: hidden;
+  margin-top: 3px;
+  z-index: 2002;
+  width: 150px;
+}
+.dt-button-collection > :last-child {
+  display: block !important;
+  -webkit-column-gap: 8px;
+  -moz-column-gap: 8px;
+  -ms-column-gap: 8px;
+  -o-column-gap: 8px;
+  column-gap: 8px;
+}
+.dt-button-collection .dt-button {
+  transition: color .15s ease-in-out,
+    background-color .15s ease-in-out,
+    border-color .15s ease-in-out,
+    box-shadow .15s ease-in-out,
+    -webkit-box-shadow .15s ease-in-out;
+  border: 1px solid #00c5fb;
+  background-color: #fff;
+  padding: .25rem .5rem;
+  border-radius: 5px;
+  font-size: .875rem;
+  position: relative;
+  margin-bottom: 4px;
+  line-height: 1.5;
+  margin-right: 0;
+  display: block;
+  width: 100%;
+  float: none;
+  right: 0;
+  left: 0;
+}
+.dt-button-collection .dt-button:hover {
+  background-color: #00c5fb;
+  color: #fff;
+}
+.dt-button-collection .dt-button.active {
+  background-color: #00c5fb;
+  border: 1px solid #00c5fb;
+  color: #fff;
+}
+.dt-button-collection .dt-button.active:hover {
+  background-color: #00b9ec;
+  color: #fff;
+}
+
+/* DataTable Pagination */
+.dataTables_wrapper .dataTables_info {
+  float: left;
+}
+.dataTables_wrapper .dataTables_paginate {
+  float: right;
+}
