@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Cart;
 use App\Order;
 use Illuminate\Support\Facades\Auth;
 
-class OrderController extends Controller
+class CartController extends Controller
 {
     public function index(){
         $orders = Auth::user()->orders;

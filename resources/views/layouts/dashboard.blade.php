@@ -7,7 +7,7 @@
 
 <body>
 
-    @include('layouts.partials.nav2')
+    {{-- @include('layouts.partials.nav2') --}}
 
     @include('layouts.partials.header')
 

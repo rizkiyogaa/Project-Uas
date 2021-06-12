@@ -10,13 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Auth::routes();
 
 Route::get('/', 'DashboardController@index')->name('dashboard.index');
 Route::group(['middleware' => 'auth'], function() {
-    Route::resource('order', 'OrderController');
+    Route::resource('myorder', 'OrderController');
+    Route::resource('cart', 'CartController');
 });
 Route::group(['middleware' => ['role:Admin', 'auth'], 'prefix' => 'admin'], function () {
-    Route::resource('menu', 'MenuController');
-    Route::resource('category', 'CategoryController');
+    Route::resource('items', 'ItemController');
+    Route::resource('orders', 'OrderController');
 });
