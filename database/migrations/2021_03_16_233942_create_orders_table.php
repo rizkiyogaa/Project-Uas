@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->integer('quantity')->nullable();
             $table->date('end_date_of_rent');
             $table->string('status');
+            $table->integer('total_price');
             $table->timestamps();
         });
     }
