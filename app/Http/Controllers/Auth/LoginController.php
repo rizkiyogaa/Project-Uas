@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -25,7 +25,7 @@ class LoginController extends Controller
         $role = Auth::user()->role; 
         switch ($role) {
           case 'Admin':
-            return '/admin/menu';
+            return '/admin/items';
             break;
           case 'Customer':
             return '/';

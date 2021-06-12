@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-auto mb-4">
-        <a href="{{ route('menu.create') }}" class="btn add-btn">
+        <a href="{{ route('items.create') }}" class="btn add-btn">
             <i class="fa fa-plus"></i> Add new data
         </a>
     </div>
@@ -14,7 +14,7 @@
             <div class="card-body">
                 <ul class="nav nav-tabs nav-tabs-bottom">
                     <li class="nav-item">
-                        <a href="{{ route('menu.index') }}"
+                        <a href="{{ route('items.index') }}"
                             class="nav-link active">
                             All&nbsp;
                             <span class="badge badge-primary">{{ $menusCount }}</span>
@@ -31,7 +31,7 @@
                                         <th>Name</th>
                                         <th>Image</th>
                                         <th>Description</th>
-                                        <th>Category</th>
+                                        <th>Quantity</th>
                                         <th>Price</th>
                                         <th width="10%">Action</th>
                                     </tr>
@@ -43,7 +43,7 @@
                                         <td>{{ $menu->name }}</td>
                                         <td><img src="{{ url('uploads/'.$menu->imageUrl) }}" width="50%" alt=""></td>
                                         <td>{{ $menu->description }}</td>
-                                        <td>{{ $menu->category->name ?? '' }}</td>
+                                        <td>{{ $menu->quantity }}</td>
                                         <td>Rp. {{ number_format($menu->price, 2) }}</td>
                                         <td class="text-right">
                                             <div class="dropdown dropdown-action">
@@ -52,11 +52,11 @@
                                                     <i class="material-icons">more_vert</i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="{{ route('menu.edit', $menu->id) }}"
+                                                    <a href="{{ route('items.edit', $menu->id) }}"
                                                         class="dropdown-item">
                                                         <i class="fa fa-pencil m-r-5"></i> Edit
                                                     </a>
-                                                    <form action="{{ route('menu.destroy', $menu->id) }}" method="POST">
+                                                    <form action="{{ route('items.destroy', $menu->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" data-hashid="{{ $menu->id }}"

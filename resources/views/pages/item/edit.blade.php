@@ -1,25 +1,27 @@
 @extends('layouts.main')
 
-@section('title', 'Add Menu')
+@section('title', 'Edit Menu')
+
 @section('content')
 
 <div class="row">
     <div class="col-auto mb-4">
-        <a href="{{ route('menu.index') }}" class="btn btn-secondary rounded-pill px-4">
+        <a href="{{ route('items.index') }}" class="btn btn-secondary rounded-pill px-4">
             <i class="fa fa-arrow-left"></i>&nbsp; Back
         </a>
     </div>
     <div class="col-md-12">
         <div class="card">
-            <form action="{{ route('menu.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('items.update', $menu->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
+                @method('put')
                 <div class="card-body">
                     <div class="form-group row">
                         <label class="col-lg-3 col-form-label">Name <span class="text-danger">*</span></label>
                         <div class="col-lg-9">
                             <input type="text" name="name"
                                 class="form-control"
-                                value="{{ old('name') }}">
+                                value="{{ $menu->name }}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -28,7 +30,7 @@
                         <div class="col-lg-9">
                             <input type="text" name="description"
                                 class="form-control"
-                                value="{{ old('description') }}">
+                                value="{{ $menu->description }}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -48,7 +50,7 @@
                                 </div>
                                 <input type="number" name="price" min="0" max="99999999999"
                                 class="form-control"
-                                value="{{ old('price') }}">
+                                value="{{ $menu->price }}">
                             </div>
                         </div>
                     </div>
@@ -60,7 +62,7 @@
                             <select class="form-control" name="category_id">
                                 <option disabled selected>-- Select --</option>
                                 @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                <option value="{{ $category->id }}" {{ ($category->id == $menu->category_id ? 'selected' : '')  }} >{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>

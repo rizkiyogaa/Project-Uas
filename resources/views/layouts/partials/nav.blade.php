@@ -3,16 +3,16 @@
         <div class="sidebar-inner slimscroll">
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
-                    <li class="{{Request::is('menu') ? 'active' : '' }}">
-                        <a href="{{ route('menu.index') }}">
+                    <li class="{{Request::is('items') ? 'active' : '' }}">
+                        <a href="{{ route('items.index') }}">
                             <i class="la la-edit"></i>
-                            <span>Menu </span>
+                            <span>Items </span>
                         </a>
                     </li>
-                    <li class="{{Request::is('category') ? 'active' : '' }}">
-                        <a href="{{ route('category.index') }}">
-                            <i class="la la-object-ungroup"></i>
-                            <span>Category </span>
+                    <li class="{{Request::is('orders') ? 'active' : '' }}">
+                        <a href="{{ route('orders.index') }}">
+                            <i class="la la-shopping-cart"></i>
+                            <span>Order </span>
                         </a>
                     </li>
                 </ul>

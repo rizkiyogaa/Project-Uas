@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LookupRequest;
-use App\Menu;
+use App\Item;
 use App\Category;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -12,15 +12,15 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
-class MenuController extends Controller
+class ItemController extends Controller
 {
 
     public function index(Request $request)
     {
-        $menus = Menu::get();
+        $menus = Item::get();
         $menusCount = $menus->count();
 
-        return view('pages.menu.index', compact(
+        return view('pages.item.index', compact(
             'menus',
             'menusCount'
         ));
@@ -28,11 +28,7 @@ class MenuController extends Controller
 
     public function create()
     {
-        $categories = Category::get();
-
-        return view('pages.menu.create', compact(
-            'categories'
-        ));
+        return view('pages.item.create');
     }
 
     public function store(Request $request)
@@ -41,14 +37,13 @@ class MenuController extends Controller
             'name' => 'required|max:255',
             'description' => 'required',
             'price' => 'required|integer',
-            'category_id' => 'required|exists:categories,id',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
         }
 
-        $menu = new Menu($request->all());
+        $menu = new Item($request->all());
         
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -62,23 +57,21 @@ class MenuController extends Controller
         
         $menu->save();
         
-        return redirect()->route('menu.index')->with('success', 'Menu created successfully');
+        return redirect()->route('items.index')->with('success', 'Item created successfully');
     }
 
     public function edit($id)
     {
-        $menu = Menu::findOrFail($id);
-        $categories = Category::get();
+        $menu = Item::findOrFail($id);
 
-        return view('pages.menu.edit', compact([
-            'menu',
-            'categories'
+        return view('pages.item.edit', compact([
+            'menu'
         ]));
     }
 
     public function update(Request $request, $id)
     {
-        $menu = Menu::findOrFail($id);
+        $menu = Item::findOrFail($id);
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $extension = $image->getClientOriginalExtension();
@@ -90,14 +83,14 @@ class MenuController extends Controller
         }
         $menu->update($request->all());
 
-        return redirect()->route('menu.index')->with('success', 'Menu updated successfully');
+        return redirect()->route('items.index')->with('success', 'Item updated successfully');
     }
 
     public function destroy($id)
     {
-        $menu = Menu::findOrFail($id);
+        $menu = Item::findOrFail($id);
         $menu->delete();
 
-        return redirect()->route('menu.index')->with('success', 'Menu deleted successfully');
+        return redirect()->route('items.index')->with('success', 'Item deleted successfully');
     }
 }

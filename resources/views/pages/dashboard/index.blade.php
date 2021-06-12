@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Menu')
+@section('title', 'Rental Barang')
 
 @section('content')
 
 <div class="row">
-    @foreach ($menus as $menu)
+    @foreach ($items as $menu)
     <div class="col-12 col-md-6 col-lg-4 d-flex">
         <div class="card flex-fill">
             <img alt="" src="{{ url('uploads/'.$menu->imageUrl) }}" class="card-img-top">
@@ -17,10 +17,10 @@
                 <strong>Price: Rp.{{ number_format($menu->price, 2) }}</strong>
             </div>
             <div class="card-footer text-muted">
-                <form action="{{ route('order.store') }}" method="POST">
+                <form action="{{ route('orders.store') }}" method="POST">
                     @csrf
                     <input type="hidden" name="menu_id" value="{{ $menu->id }}">
-                    <button class="btn btn-primary" type="submit">Order</button>
+                    <button class="btn btn-primary" type="submit">Sewa</button>
                 </form>
             </div>
         </div>
@@ -28,7 +28,7 @@
     @endforeach
 </div>
 
-{!! $menus->links() !!}
+{!! $items->links() !!}
 {{-- <div class="row">
     <div class="col-12 col-md-6 col-lg-4 d-flex">
         <div>
